@@ -8,23 +8,26 @@ _NB You will need to create a tagged release in order to build
 * [Build and Deploy](https://upp-k8s-jenkins.in.ft.com/job/k8s-deployment/job/apps-deployment/job/public-organisations-api-auto-deploy/)
 
 
-## Installation & running locally
-* `go get -u github.com/Financial-Times/public-organisation-api`
-* `cd $GOPATH/src/github.com/Financial-Times/public-organisation-api`
+## Installation
+        go get -u github.com/Financial-Times/public-organisation-api
+        cd $GOPATH/src/github.com/Financial-Times/public-organisation-api
+        dep ensure -v -vendor-only
+        go test ./...
+        go install
 
-* `go get github.com/kardianos/govendor`
-* `govendor sync`
+## Running locally
 
-* `go test ./...`
-* `go install`
-* `$GOPATH/bin/public-organisation-api --neo-url={neo4jUrl} --port={port} --log-level={DEBUG|INFO|WARN|ERROR} --cache-duration{e.g. 22h10m3s}`
-_Optional arguments are:
---neo-url defaults to http://localhost:7474/db/data, which is the out of box url for a local neo4j instance.
---port defaults to 8080.
---cache-duration defaults to 1 hour._
-* `curl http://localhost:8080/organisation/143ba45c-2fb3-35bc-b227-a6ed80b5c517 | json_pp`
-Or using [httpie](https://github.com/jkbrzt/httpie)
-* `http GET http://localhost:8080/organisation/143ba45c-2fb3-35bc-b227-a6ed80b5c517`
+	Usage: public-organisations-api [OPTIONS]
+
+	A public RESTful API for accessing organisations in Neo4j
+
+	Options:
+	      --app-system-code        System Code of the application (env $APP_SYSTEM_CODE) (default "public-organisation-api")
+	      --port                   Port to listen on (env $APP_PORT) (default "8080")
+	      --log-level              Log level to use (env $LOG_LEVEL) (default "debug")
+	      --env                    environment this app is running in (default "local")
+	      --cache-duration         Duration Get requests should be cached for. e.g. 2h45m would set the max-age value to '7440' seconds (env $CACHE_DURATION) (default "30s")
+	      --publicConceptsApiURL   Public concepts API endpoint URL. (env $CONCEPTS_API) (default "http://localhost:8081")
 
 ## API definition
 * Based on the following [google doc](https://docs.google.com/document/d/1SC4Uskl-VD78y0lg5H2Gq56VCmM4OFHofZM-OvpsOFo/edit#heading=h.qjo76xuvpj83)

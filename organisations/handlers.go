@@ -9,10 +9,10 @@ import (
 	"strings"
 
 	fthealth "github.com/Financial-Times/go-fthealth/v1_1"
-	"github.com/Financial-Times/go-logger"
+	logger "github.com/Financial-Times/go-logger"
 	"github.com/Financial-Times/neo-model-utils-go/mapper"
 	"github.com/Financial-Times/service-status-go/gtg"
-	"github.com/Financial-Times/transactionid-utils-go"
+	transactionidutils "github.com/Financial-Times/transactionid-utils-go"
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 )
@@ -193,6 +193,8 @@ func (h *OrganisationsHandler) getOrganisationViaConceptsAPI(uuid string, transI
 		logger.WithError(err).WithUUID(uuid).WithTransactionID(transID).Error(msg)
 		return org, false, err
 	}
+	defer resp.Body.Close()
+
 	if resp.StatusCode == http.StatusNotFound {
 		return org, false, nil
 	}
@@ -205,8 +207,6 @@ func (h *OrganisationsHandler) getOrganisationViaConceptsAPI(uuid string, transI
 		logger.WithError(err).WithUUID(uuid).WithTransactionID(transID).Error(msg)
 		return org, false, err
 	}
-
-	defer resp.Body.Close()
 
 	if err = json.Unmarshal(body, &conceptsApiResponse); err != nil {
 		msg := fmt.Sprintf("failed to unmarshal response body: %v", body)
