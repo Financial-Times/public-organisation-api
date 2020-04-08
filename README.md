@@ -9,11 +9,16 @@ _NB You will need to create a tagged release in order to build
 
 
 ## Installation
+
+Download the source code, dependencies and build the binary:
+
         go get -u github.com/Financial-Times/public-organisation-api
         cd $GOPATH/src/github.com/Financial-Times/public-organisation-api
-        dep ensure -v -vendor-only
-        go test ./...
         go install
+
+To run the tests:
+
+		go test -v -race ./...
 
 ## Running locally
 
@@ -37,7 +42,9 @@ _NB You will need to create a tagged release in order to build
 Healthchecks: [http://localhost:8080/__health](http://localhost:8080/__health)
 
 ### Logging
-the application uses logrus, the logfile is initilaised in main.go.
- logging requires an env app parameter, for all enviromets  other than local logs are written to file
- when running locally logging is written to console (if you want to log locally to file you need to pass in an env parameter that is != local)
- NOTE: build-info end point is not logged as it is called every second from varnish and this information is not needed in  logs/splunk
+* The application uses logrus, the logfile is initilised in main.go. 
+* Logging requires an env app parameter for all enviroments other than local. 
+* Logs are written to a file.
+* When the application is run locally, logging is written to the console (if you want to log locally to file you need to pass in an env parameter that is != local)
+ NOTE: The `/__build-info` and `/__gtg` endpoints are not logged as they are called very often from the healthchecking services and this information is not needed in the logs or Splunk.
+
