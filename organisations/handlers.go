@@ -66,7 +66,7 @@ func (h *OrganisationsHandler) HealthCheck() fthealth.Check {
 		ID:               "public-concepts-api-check",
 		BusinessImpact:   "Unable to respond to Public Organisations api requests",
 		Name:             "Check connectivity to public-concepts-api",
-		PanicGuide:       "https://dewey.ft.com/public-org-api.html",
+		PanicGuide:       "https://runbooks.in.ft.com/public-org-api",
 		Severity:         2,
 		TechnicalSummary: "Not being able to communicate with public-concepts-api means that requests for organisations cannot be performed.",
 		Checker:          h.Checker,

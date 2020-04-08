@@ -75,7 +75,7 @@ paths:
                   lastUpdated: "2018-09-04T07:54:23.117495772Z"
                   name: "Check connectivity to public-concepts-api"
                   ok: true
-                  panicGuide: "https://dewey.in.ft.com/view/system/public-brands-api"
+                  panicGuide: "https://runbooks.in.ft.com/public-org-api"
                   severity: 1
                   technicalSummary: "Not being able to communicate with public-concepts-api means that requests for organisations cannot be performed. "
               description: "Public API for serving information on Brands within UPP"
